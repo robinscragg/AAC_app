@@ -1,0 +1,23 @@
+(lp0
+(lp1
+VI need to use the bathroom
+p2
+aVCan we leave?
+p3
+aVI'm going to go
+p4
+aVI'm overwhelmed
+p5
+aVI want some space
+p6
+aa(lp7
+VI like that
+p8
+aVI feel uncomfortable
+p9
+aa(lp10
+VHow are you?
+p11
+aVI'm doing well, thanks
+p12
+aa.

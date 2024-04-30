@@ -1,0 +1,17 @@
+[
+  {
+    "type": "options",
+    "title": "Choose which voice",
+    "desc": "Voice options",
+    "section": "Voice",
+    "key": "voiceoptions",
+    "options": [ "Male", "Female" ]
+  },
+  {
+    "type": "numeric",
+    "title": "Choose speed from a range of 1 to 100",
+    "desc": "Select voice speed",
+    "section": "Voice",
+    "key": "speed"
+  }
+]

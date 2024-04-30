@@ -1,0 +1,297 @@
+#:kivy 2.2.1
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+#:import RoundedRectangle kivy.graphics
+
+#:import Folder Folder_button
+#:import Phrase Phrase_button
+
+AppScreenManager:
+    transition: NoTransition()
+    GuideScreen:
+    HomeScreen:
+    NewFolderScreen:
+    NewPhraseScreen:
+    ChangeFolderNameScreen:
+    ChangePhraseNameScreen:
+
+<AllButtons>:
+    size_hint: 1,1
+    pos_hint:  {"x": 0, "top": 1}
+    font_name: app.font
+    font_size: app.fontsize
+    background_normal: ""
+    background_color: app.allColour
+    color: app.textColour
+    canvas.before:
+        Color:
+            rgba: 0, 0, 0, 1
+        Line:   
+            width: 5
+            rectangle: self.x, self.y, self.width, self.height
+
+<FolderButton>:
+    size_hint: None,1
+    on_press: self.StartTimer()
+    on_release: self.StopTimer()
+             
+<PhraseButton>:
+    size_hint: 1,None
+    on_press: self.StartTimer()
+    on_release: self.StopTimer(Folder.currentFolder)
+
+<HomeScreen>:
+    name: "homeScreen"
+
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: 1,1
+        pos_hint:  {"x": 0, "top": 1}
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1,0.5
+            pos_hint:  {"x": 0, "top": 1}
+
+            SettingsButton:
+                id: settings
+                text: "Settings"
+                on_press: root.GetButtons()
+
+            GuideButton:
+                id: guide
+                text: "Guide"
+                on_press: app.root.current = "guideScreen"
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1,0.5
+            pos_hint:  {"x": 0, "top": 1}
+
+            TextInputBox:
+                id: textInput
+                hint_text: "Enter text to speak"
+                hint_text_color: "grey"
+                pos_hint: {"x" : 0, "top": 1} 
+                size_hint: 1,1
+
+            PlayButton:
+                id: play
+                background_normal: "play_button_image.png"
+                background_down: "play_button_image.png"
+                on_press: self.Play(app.textToSpeech)
+                size_hint: None,None
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1,1
+            id:folderLayout
+            pos_hint:  {"x": 0, "top": 1}
+
+            ScrollView:
+                do_scroll_x: True
+                do_scroll_y: False
+                id: scrollFolders
+                pos_hint:  {"x": 0, "top": 1}
+
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint: None,1
+                    id: folderView
+                    pos_hint:  {"x": 0, "top": 1}
+
+                    on_kv_post:
+                        for folder in app.folders: Folder.folderWidgets.append(Folder.FolderButton(text = folder, background_color = app.folderColour, color = app.folderText))
+                        for folderButton in Folder.folderWidgets: self.add_widget(folderButton)
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: 1,1
+                pos_hint:  {"x": 0, "top": 1}
+
+                CreateFolderButton:
+                    id: createFolder
+                    text: "Create a folder"
+                    on_press: app.root.current = "newFolderScreen"
+
+                UploadFolderButton:
+                    id: UploadFolder
+                    text: "Upload/download a folder"
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: 1,1
+            pos_hint:  {"x": 0, "top": 1}
+        
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+                id: scrollPhrases
+                pos_hint:  {"x": 0, "top": 1}
+            
+                GridLayout:
+                    cols: 3
+                    size_hint_y: None
+                    height: self.minimum_height
+                    id: phraseGrid
+                    pos_hint:  {"x": 0, "top": 1}
+
+                    on_kv_post:
+                        for phrase in app.phrases[0]: self.add_widget(Phrase.PhraseButton(text = phrase, background_color = app.phraseColour, color = app.phraseText))
+            
+            CreatePhraseButton:
+                id: createPhrase
+                text: "Create a phrase"
+                on_press: app.root.current = "newPhraseScreen"
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1,0.5
+            pos_hint:  {"x": 0, "top": 1}
+
+            EditFolderButton:
+                id: editFolder
+                text: "Enter edit folder mode"
+                on_press: self.HideShowWidgets()
+
+<GuideScreen>:
+    name: "guideScreen"
+
+    BoxLayout:
+    
+        Label:
+            id: guidelabel
+            text: "Guide"
+            pos_hint:  {"x": 0, "top": 1}
+
+        Button:
+            id: home
+            text: "Go Home"
+            on_press: app.root.current = "homeScreen"
+            pos_hint:  {"x": 0, "top": 1}
+
+<NewFolderScreen>:
+    name: "newFolderScreen"
+    
+    BoxLayout:
+        orientation: 'vertical'
+
+        BoxLayout:
+            orientation: 'horizontal'
+
+            Label:
+                text: "Enter the name for the folder"
+                pos_hint:  {"x": 0, "top": 1}
+
+            TextInput:
+                id: folderInput
+                pos_hint:  {"x": 0, "top": 1}
+
+        BoxLayout:
+            orientation: 'horizontal'
+
+            CreateFolderButton:
+                size_hint: 1,1
+                text: "Press to create folder"
+                on_press: self.CreateFolder(folderInput.__self__, app.folderColour, app.folderText)
+
+        Button:
+            id: home
+            text: "Go Home"
+            on_press: app.root.current = "homeScreen"
+            pos_hint:  {"x": 0, "top": 1}
+
+<NewPhraseScreen>:
+    name: "newPhraseScreen"
+    
+    BoxLayout:
+        orientation: 'vertical'
+
+        BoxLayout:
+            orientation: 'horizontal'
+
+            Label:
+                text: "Enter the name for the phrase or press the button below to the current phrase"
+                pos_hint:  {"x": 0, "top": 1}
+
+            TextInput:
+                id: phraseInput
+                pos_hint:  {"x": 0, "top": 1}
+
+        BoxLayout:
+            orientation: 'vertical'
+
+            CreatePhraseButton:
+                size_hint: 1,1
+                text: "Press to create a phrase from the home screen's text box"
+                on_press: self.CreatePhrase(0, phraseInput.__self__)
+
+            CreatePhraseButton:
+                size_hint: 1,1
+                text: "Press to create a phrase from the above text box"
+                on_press: self.CreatePhrase(1, phraseInput.__self__)
+
+        Button:
+            id: home
+            text: "Go Home"
+            on_press: app.root.current = "homeScreen"
+            pos_hint:  {"x": 0, "top": 1}
+
+<ChangeFolderNameScreen>:
+    name: "changeFolderScreen"
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        BoxLayout:
+            orientation: 'horizontal'
+
+            Label:
+                text: "Enter the name for the folder"
+
+            TextInput:
+                id: folderEdit
+
+        BoxLayout:
+            orientation: 'horizontal'
+
+            FolderButton:
+                text: "Click to change the folder name"
+                size_hint: 1,1
+                on_press: self.ChangeName(folderEdit.__self__)
+                on_release: app.root.current = "homeScreen"
+
+        Button:
+            id: home
+            text: "Go Home"
+            on_press: app.root.current = "homeScreen"
+            pos_hint:  {"x": 0, "top": 1}
+
+<ChangePhraseNameScreen>:
+    name: "changePhraseScreen"
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        BoxLayout:
+            orientation: 'horizontal'
+
+            Label:
+                text: "Enter the name for the phrase"
+
+            TextInput:
+                id: phraseEdit
+
+        BoxLayout:
+            orientation: 'horizontal'
+
+            PhraseButton:
+                text: "Click to change the phrase name"
+                size_hint: 1,1
+                on_press: self.ChangeName(phraseEdit.__self__, Folder.currentFolder)
+                on_release: app.root.current = "homeScreen"
+
+        Button:
+            id: home
+            text: "Go Home"
+            on_press: app.root.current = "homeScreen"
+            pos_hint:  {"x": 0, "top": 1}

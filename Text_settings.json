@@ -1,0 +1,15 @@
+[
+  {
+    "type": "options",
+    "title": "Choose the font",
+    "section": "Text",
+    "key": "fontoptions",
+    "options": [ "Arial", "Calibri", "Comic" ]
+  },
+  {
+    "type": "numeric",
+    "title": "Choose the size of the font",
+    "section": "Text",
+    "key":  "size"
+  }
+]

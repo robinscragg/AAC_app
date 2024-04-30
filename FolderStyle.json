@@ -1,0 +1,27 @@
+[
+  {
+    "type": "color",
+    "section": "Style",
+    "title": "Choose colour of current folder",
+    "key": "currentFolder"
+  },
+  {
+    "type": "color",
+    "section": "Style",
+    "title": "Choose colour of current folder text",
+    "key": "currentFolderText"
+  },
+  {
+    "type": "color",
+    "section": "Style",
+    "title": "Choose colour of current phrases",
+    "key": "currentPhrase"
+  },
+  {
+    "type": "color",
+    "section": "Style",
+    "title": "Choose colour of current phrases text",
+    "key": "currentPhraseText"
+  }
+
+]

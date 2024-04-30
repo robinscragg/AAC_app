@@ -1,0 +1,41 @@
+[
+  {
+    "type": "color",
+    "section": "Colours",
+    "title": "Change the colour of all buttons",
+    "key": "allColour"
+
+  },
+  {
+    "type": "color",
+    "section": "Colours",
+    "title": "Change colour of text on buttons",
+    "key": "textColour"
+  },
+  {
+    "type": "color",
+    "section": "Colours",
+    "title": "Change colour for all folders",
+    "key": "folderColour"
+  },
+  {
+    "type": "color",
+    "section": "Colours",
+    "title": "Change colour of text on folders",
+    "key":  "folderText"
+  },
+  {
+    "type": "color",
+    "section": "Colours",
+    "title": "Change colour for all phrases",
+    "key": "phraseColour"
+  },
+  {
+     "type": "color",
+    "section": "Colours",
+    "title": "Change colour of text on phrases",
+    "key": "phraseText"
+    
+  }
+
+]

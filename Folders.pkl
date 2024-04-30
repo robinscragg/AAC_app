@@ -1,0 +1,8 @@
+(lp0
+VNeeds
+p1
+aVFeelings
+p2
+aVGreetings
+p3
+a.
